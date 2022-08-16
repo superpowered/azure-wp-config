@@ -61,6 +61,18 @@ if ($mysql_sslconnect && !is_numeric(strpos($connectstr_dbhost, "127.0.0.1")) &&
 	define('MYSQL_CLIENT_FLAGS', MYSQLI_CLIENT_SSL);
 }
 
+/** External Storage & CDN */
+$microsoft_azure_account_name = getenv('MICROSOFT_AZURE_ACCOUNT_NAME');
+$microsoft_azure_account_key = getenv('MICROSOFT_AZURE_ACCOUNT_KEY');
+$microsoft_azure_container = getenv('MICROSOFT_AZURE_CONTAINER');
+$microsoft_azure_cname = getenv('MICROSOFT_AZURE_CNAME');
+$microsoft_azure_use_for_default_upload = filter_var(getenv('MICROSOFT_AZURE_USE_FOR_DEFAULT_UPLOAD'), FILTER_VALIDATE_BOOLEAN);
+define('MICROSOFT_AZURE_ACCOUNT_NAME', $microsoft_azure_account_name);
+define('MICROSOFT_AZURE_ACCOUNT_KEY', $microsoft_azure_account_key);
+define('MICROSOFT_AZURE_CONTAINER', $microsoft_azure_container);
+define('MICROSOFT_AZURE_CNAME', $microsoft_azure_cname);
+define('MICROSOFT_AZURE_USE_FOR_DEFAULT_UPLOAD', $microsoft_azure_use_for_default_upload);
+
 
 /**#@+
  * Authentication Unique Keys and Salts.
