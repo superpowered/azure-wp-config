@@ -1,7 +1,4 @@
 <?php
-/** Enable W3 Total Cache */
-define('WP_CACHE', true); // Added by W3 Total Cache
-
 /**
  * The base configuration for WordPress
  *
@@ -86,14 +83,22 @@ define('MICROSOFT_AZURE_USE_FOR_DEFAULT_UPLOAD', $microsoft_azure_use_for_defaul
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         'put your unique phrase here' );
-define( 'SECURE_AUTH_KEY',  'put your unique phrase here' );
-define( 'LOGGED_IN_KEY',    'put your unique phrase here' );
-define( 'NONCE_KEY',        'put your unique phrase here' );
-define( 'AUTH_SALT',        'put your unique phrase here' );
-define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
-define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
-define( 'NONCE_SALT',       'put your unique phrase here' );
+$auth_key = getenv('AUTH_KEY') ? getenv('AUTH_KEY') : 'put your unique phrase here';
+$secure_auth_key = getenv('SECURE_AUTH_KEY') ? getenv('SECURE_AUTH_KEY') : 'put your unique phrase here';
+$logged_in_key = getenv('LOGGED_IN_KEY') ? getenv('LOGGED_IN_KEY') : 'put your unique phrase here';
+$nonce_key = getenv('NONCE_KEY') ? getenv('NONCE_KEY') : 'put your unique phrase here';
+$auth_salt= getenv('AUTH_SALT') ? getenv('AUTH_SALT') : 'put your unique phrase here';
+$secure_auth_salt = getenv('SECURE_AUTH_SALT') ? getenv('SECURE_AUTH_SALT') : 'put your unique phrase here';
+$logged_in_salt = getenv('LOGGED_IN_SALT') ? getenv('LOGGED_IN_SALT') : 'put your unique phrase here';
+$nonce_salt = getenv('NONCE_SALT') ? getenv('NONCE_SALT') : 'put your unique phrase here';
+define( 'AUTH_KEY',         $auth_key );
+define( 'SECURE_AUTH_KEY',  $secure_auth_key );
+define( 'LOGGED_IN_KEY',    $logged_in_key );
+define( 'NONCE_KEY',        $nonce_key );
+define( 'AUTH_SALT',        $auth_salt );
+define( 'SECURE_AUTH_SALT', $secure_auth_salt );
+define( 'LOGGED_IN_SALT',   $logged_in_salt );
+define( 'NONCE_SALT',       $nonce_salt );
 
 /**#@-*/
 
@@ -135,6 +140,19 @@ define('WP_HOME', $http_protocol . $_SERVER['HTTP_HOST']);
 define('WP_SITEURL', $http_protocol . $_SERVER['HTTP_HOST']);
 define('WP_CONTENT_URL', '/wp-content');
 define('DOMAIN_CURRENT_SITE', $_SERVER['HTTP_HOST']);
+
+
+/**
+ * Disable the theme and plugin installers and editors...
+ **/
+$disallow_file_mods = filter_var(getenv('DISALLOW_FILE_MODS'), FILTER_VALIDATE_BOOLEAN);
+$disallow_file_edit = filter_var(getenv('DISALLOW_FILE_EDIT'), FILTER_VALIDATE_BOOLEAN);
+define( 'DISALLOW_FILE_MODS', $disallow_file_mods );
+define( 'DISALLOW_FILE_EDIT', $disallow_file_edit );
+
+/** Enable W3 Total Cache */
+$wp_cache = filter_var(getenv('WP_CACHE'), FILTER_VALIDATE_BOOLEAN);
+define('WP_CACHE', $wp_cache);
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) ) {
